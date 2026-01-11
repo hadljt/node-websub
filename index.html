@@ -1,722 +1,775 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Network - Protect Earth</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #2e7d32;
-            --secondary: #4caf50;
-            --accent: #8bc34a;
-            --light: #e8f5e9;
-            --dark: #1b5e20;
-            --text: #333333;
-            --white: #ffffff;
-        }
-
-        body {
-            background-color: var(--light);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .logo i {
-            font-size: 2rem;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 2rem;
-        }
-
-        nav ul li a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0;
-            position: relative;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent);
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent);
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            color: var(--text);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-img {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .about-img:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-item i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .stat-item h3 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            color: var(--text);
-        }
-
-        .initiatives {
-            background-color: var(--white);
-        }
-
-        .initiatives-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .initiative-card {
-            background-color: var(--light);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .initiative-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .initiative-img {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .initiative-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .initiative-card:hover .initiative-img img {
-            transform: scale(1.1);
-        }
-
-        .initiative-content {
-            padding: 1.5rem;
-        }
-
-        .initiative-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .initiative-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .cta {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            text-align: center;
-            padding: 5rem 0;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta .btn {
-            background-color: var(--white);
-            color: var(--primary);
-        }
-
-        .cta .btn:hover {
-            background-color: var(--accent);
-            color: var(--white);
-        }
-
-        footer {
-            background-color: var(--dark);
-            color: var(--white);
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--accent);
-        }
-
-        .footer-column p {
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links li a {
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links li a:hover {
-            color: var(--accent);
-            padding-left: 5px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary);
-                flex-direction: column;
-                padding: 1rem 0;
-                text-align: center;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0;
-                padding: 0.8rem 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animation for stats counter */
-        .counter {
-            transition: all 0.5s ease;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jayi Blog · 静态博客</title>
+  <meta name="description" content="一个现代、干净的静态博客模板。" />
+  <style>
+    :root{
+      --bg: #0b1220;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --line: rgba(255,255,255,.14);
+      --brand: #7c3aed;
+      --brand2: #06b6d4;
+      --shadow: 0 14px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --max: 1120px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
+    [data-theme="light"]{
+      --bg: #f6f7fb;
+      --panel: rgba(0,0,0,.045);
+      --panel2: rgba(0,0,0,.06);
+      --text: rgba(10,18,32,.92);
+      --muted: rgba(10,18,32,.62);
+      --line: rgba(10,18,32,.12);
+      --shadow: 0 14px 50px rgba(16,24,40,.12);
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(124,58,237,.35), transparent 55%),
+        radial-gradient(900px 500px at 90% 10%, rgba(6,182,212,.25), transparent 60%),
+        radial-gradient(900px 500px at 50% 110%, rgba(124,58,237,.20), transparent 60%),
+        var(--bg);
+      line-height: 1.65;
+    }
+    a{ color: inherit; text-decoration: none; }
+    .container{ max-width: var(--max); margin: 0 auto; padding: 24px; }
+
+    /* Top bar */
+    .topbar{
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(10,14,24,.72), rgba(10,14,24,.18));
+      border-bottom: 1px solid var(--line);
+    }
+    [data-theme="light"] .topbar{
+      background: linear-gradient(to bottom, rgba(246,247,251,.92), rgba(246,247,251,.55));
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap: 12px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+    .logo{
+      width: 38px; height: 38px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 12px 30px rgba(124,58,237,.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:-30%;
+      background: linear-gradient(45deg, rgba(255,255,255,.0), rgba(255,255,255,.35), rgba(255,255,255,.0));
+      transform: rotate(25deg);
+      animation: shine 5s linear infinite;
+    }
+    @keyframes shine{
+      0%{ transform: translateX(-40%) rotate(25deg); }
+      100%{ transform: translateX(40%) rotate(25deg); }
+    }
+    .navlinks{
+      display:flex; align-items:center; gap: 16px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .navlinks a{
+      padding: 10px 10px;
+      border-radius: 12px;
+    }
+    .navlinks a:hover{
+      background: var(--panel);
+      color: var(--text);
+    }
+    .navright{
+      display:flex; align-items:center; gap: 10px;
+      min-width: 260px;
+      justify-content: flex-end;
+    }
+    .search{
+      display:flex; align-items:center; gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+      width: min(340px, 44vw);
+    }
+    [data-theme="light"] .search{ background: rgba(255,255,255,.7); }
+    .search input{
+      border:none; outline:none; width: 100%;
+      background: transparent;
+      color: var(--text);
+      font-size: 14px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--text);
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: transform .12s ease;
+    }
+    .pill:active{ transform: scale(.98); }
+    .icon{
+      width: 16px; height: 16px; display:inline-block;
+      opacity: .9;
+    }
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+      .navright{ min-width: auto; width: 100%; }
+      .search{ width: 100%; }
+      .nav{ flex-wrap: wrap; }
+    }
+    .card{
+      background: linear-gradient(180deg, var(--panel2), var(--panel));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero-left{
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(900px 400px at 10% 10%, rgba(124,58,237,.28), transparent 55%),
+                  radial-gradient(900px 420px at 95% 30%, rgba(6,182,212,.20), transparent 60%);
+      pointer-events:none;
+    }
+    .hero-left > *{ position: relative; z-index: 1; }
+    .kicker{
+      display:inline-flex;
+      gap: 10px;
+      align-items:center;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .3px;
+    }
+    .k-dot{
+      width: 10px; height: 10px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 8px 18px rgba(124,58,237,.25);
+    }
+    h1{
+      margin: 14px 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
+      letter-spacing: -.4px;
+    }
+    .sub{
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .hero-actions{
+      display:flex; gap: 10px; flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .12s ease, background .12s ease;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,58,237,.92), rgba(6,182,212,.75));
+      border: 0;
+      box-shadow: 0 18px 42px rgba(124,58,237,.20);
+    }
+    .btn:hover{ background: rgba(255,255,255,.07); }
+    .btn.primary:hover{ filter: brightness(1.04); }
+    .meta{
+      display:flex; gap: 12px; flex-wrap: wrap;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      margin-top: 14px;
+    }
+    .chip{
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+
+    .hero-right{
+      padding: 16px;
+      display:flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .stat{
+      display:flex; justify-content: space-between; align-items: baseline;
+      padding: 14px 14px;
+      border-radius: var(--radius2);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    .stat b{ font-size: 18px; }
+    .stat span{ color: var(--muted); font-size: 12px; font-family: var(--mono); }
+    .mini{
+      padding: 14px 14px;
+      border-radius: var(--radius2);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .mini strong{ color: var(--text); }
+
+    /* Layout */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.55fr .85fr;
+      gap: 18px;
+      margin-top: 18px;
+      align-items: start;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    /* Posts */
+    .posts{ padding: 16px; }
+    .posts-header{
+      display:flex; align-items:center; justify-content: space-between;
+      gap: 12px;
+      padding: 8px 6px 14px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 12px;
+    }
+    .posts-header h2{
+      margin:0;
+      font-size: 16px;
+      letter-spacing: .2px;
+    }
+    .filters{
+      display:flex; gap: 8px; flex-wrap: wrap;
+    }
+    .tagbtn{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .tagbtn.active{
+      color: var(--text);
+      background: rgba(124,58,237,.18);
+      border-color: rgba(124,58,237,.35);
+    }
+
+    .post{
+      display:grid;
+      grid-template-columns: 168px 1fr;
+      gap: 14px;
+      padding: 14px;
+      border-radius: var(--radius2);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      margin-bottom: 12px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .post:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.05);
+      border-color: rgba(255,255,255,.22);
+    }
+    @media (max-width: 640px){
+      .post{ grid-template-columns: 1fr; }
+    }
+    .thumb{
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(124,58,237,.32), rgba(6,182,212,.18));
+      min-height: 110px;
+      position: relative;
+    }
+    .thumb:after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(260px 120px at 30% 30%, rgba(255,255,255,.20), transparent 55%),
+        radial-gradient(300px 160px at 80% 40%, rgba(255,255,255,.10), transparent 60%);
+      pointer-events:none;
+    }
+    .post h3{
+      margin: 2px 0 8px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+    .post p{
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .post-meta{
+      display:flex; gap: 10px; flex-wrap: wrap;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+    .badge{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+
+    /* Sidebar */
+    .sidebar{ padding: 16px; }
+    .sidebox{
+      padding: 14px;
+      border-radius: var(--radius2);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      margin-bottom: 12px;
+    }
+    .sidebox h3{
+      margin: 0 0 10px;
+      font-size: 14px;
+    }
+    .tagcloud{
+      display:flex; flex-wrap: wrap; gap: 8px;
+    }
+    .tag{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 12px;
+      cursor:pointer;
+    }
+    .tag:hover{ color: var(--text); }
+    .subscribe{
+      display:flex; gap: 10px; margin-top: 10px;
+    }
+    .subscribe input{
+      flex:1;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      padding: 12px 12px;
+      color: var(--text);
+      outline: none;
+    }
+    [data-theme="light"] .subscribe input{ background: rgba(255,255,255,.9); }
+    .footer{
+      margin: 18px 0 10px;
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      display:flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      font-size: 13px;
+    }
+    .kbd{
+      font-family: var(--mono);
+      border: 1px solid var(--line);
+      border-bottom-color: rgba(0,0,0,.22);
+      padding: 2px 6px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+    }
+
+    /* Utility */
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  </style>
 </head>
+
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fas fa-seedling"></i>
-                <span>Green Network</span>
-            </div>
-            <nav>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#initiatives">Initiatives</a></li>
-                    <li><a href="#get-involved">Get Involved</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#">
+        <span class="logo" aria-hidden="true"></span>
+        <span>Jayi Blog</span>
+      </a>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Protect Our Planet, Preserve Our Future</h1>
-            <p>Join the global movement to create a sustainable world through conservation, education, and community action.</p>
-            <a href="#get-involved" class="btn">Join Our Network</a>
+      <nav class="navlinks" aria-label="主导航">
+        <a href="#posts">文章</a>
+        <a href="#topics">专题</a>
+        <a href="#about">关于</a>
+      </nav>
+
+      <div class="navright">
+        <label class="search" aria-label="搜索文章">
+          <svg class="icon" viewBox="0 0 24 24" fill="none">
+            <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <input id="q" type="search" placeholder="搜索标题 / 标签 / 摘要…" autocomplete="off" />
+        </label>
+
+        <button id="themeBtn" class="pill" type="button" title="切换主题">
+          <svg class="icon" id="themeIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 19v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4.22 4.22l1.42 1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M18.36 18.36l1.42 1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M3 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M19 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4.22 19.78l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span id="themeText">主题</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="card hero-left">
+        <span class="kicker"><span class="k-dot" aria-hidden="true"></span> 静态博客模板 · Modern UI</span>
+        <h1>把你的笔记、项目与思考<br/>整理成一个「可长期维护」的博客</h1>
+        <p class="sub">
+          这是一个纯静态页面：无需框架、无需构建。你可以直接把文章数据写在脚本数组里，或后续替换为 Markdown / 生成器输出。
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="#posts">
+            <svg class="icon" viewBox="0 0 24 24" fill="none">
+              <path d="M7 7h10M7 12h10M7 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            浏览文章
+          </a>
+          <a class="btn" href="#about">
+            <svg class="icon" viewBox="0 0 24 24" fill="none">
+              <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M4 21a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            关于本站
+          </a>
+          <button class="btn" type="button" id="randomBtn">
+            <svg class="icon" viewBox="0 0 24 24" fill="none">
+              <path d="M16 3h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M21 3l-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M4 7h5l10 10h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M16 21h5v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M21 21l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M4 17h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            随机一篇
+          </button>
         </div>
+
+        <div class="meta">
+          <span class="chip">快捷键：<span class="kbd">/</span> 搜索</span>
+          <span class="chip">本地保存：主题偏好</span>
+          <span class="chip">可扩展：Markdown / RSS / 评论</span>
+        </div>
+      </div>
+
+      <aside class="card hero-right" id="topics">
+        <div class="stat"><span>文章总数</span><b id="statCount">0</b></div>
+        <div class="stat"><span>专题标签</span><b id="statTags">0</b></div>
+        <div class="mini">
+          <strong>推荐做法：</strong> 每篇文章写清「目的 / 结论 / 复现步骤 / 参考链接」。
+          当你回头复盘时，质量会显著提升。
+        </div>
+        <div class="mini">
+          <strong>部署：</strong> 直接丢到 GitHub Pages / Cloudflare Pages / 任意静态主机即可。
+        </div>
+      </aside>
     </section>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Green Network</h2>
-                <p>We are a global community dedicated to environmental protection and sustainable development.</p>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Team planting trees">
-                </div>
-                <div class="about-text">
-                    <h3>Our Mission</h3>
-                    <p>Green Network is committed to creating a sustainable future by protecting natural ecosystems, promoting renewable energy, and empowering communities to take environmental action.</p>
-                    <p>Founded in 2010, we've grown from a small grassroots organization to an international network with over 50,000 members across 120 countries.</p>
-                    <p>Our approach combines scientific research, community engagement, and policy advocacy to address the most pressing environmental challenges of our time.</p>
-                    <a href="#" class="btn">Learn More</a>
-                </div>
-            </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <i class="fas fa-tree"></i>
-                    <h3 class="counter" data-target="2500000">0</h3>
-                    <p>Trees Planted</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <h3 class="counter" data-target="50000">0</h3>
-                    <p>Active Members</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-globe-americas"></i>
-                    <h3 class="counter" data-target="120">0</h3>
-                    <p>Countries Reached</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-recycle"></i>
-                    <h3 class="counter" data-target="1500">0</h3>
-                    <p>Cleanup Projects</p>
-                </div>
-            </div>
+    <section class="grid" id="posts">
+      <div class="card posts">
+        <div class="posts-header">
+          <h2>最新文章</h2>
+          <div class="filters" id="filters"></div>
         </div>
+
+        <div id="postList" aria-live="polite"></div>
+      </div>
+
+      <aside class="card sidebar">
+        <div class="sidebox" id="about">
+          <h3>关于</h3>
+          <p style="margin:0;color:var(--muted);font-size:14px;">
+            这里是 <strong style="color:var(--text);">Jayi</strong> 的静态博客。
+            你可以把本文当作模板，替换标题/简介/文章数据即可。
+          </p>
+        </div>
+
+        <div class="sidebox">
+          <h3>标签</h3>
+          <div class="tagcloud" id="tagCloud"></div>
+        </div>
+
+        <div class="sidebox">
+          <h3>订阅（演示）</h3>
+          <p style="margin:0;color:var(--muted);font-size:14px;">
+            纯静态站常见做法：用 RSS 或邮件服务。此处仅做 UI 演示。
+          </p>
+          <div class="subscribe">
+            <input id="email" type="email" placeholder="your@email.com" />
+            <button class="btn primary" type="button" id="subBtn">订阅</button>
+          </div>
+          <p id="subHint" style="margin:10px 0 0;color:var(--muted);font-size:12px;font-family:var(--mono);"></p>
+        </div>
+      </aside>
     </section>
 
-    <!-- Initiatives Section -->
-    <section class="initiatives" id="initiatives">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Initiatives</h2>
-                <p>Discover the key programs and projects we're implementing to protect our planet.</p>
-            </div>
-            <div class="initiatives-grid">
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://dialogue.earth/content/uploads/2021/04/lessons-from-the-rush-to-reforest-china-dialogue-2400x1599.jpg" alt="Reforestation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Global Reforestation</h3>
-                        <p>Planting millions of trees worldwide to restore ecosystems, combat climate change, and protect biodiversity.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Ocean Conservation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Ocean Conservation</h3>
-                        <p>Protecting marine ecosystems, reducing plastic pollution, and promoting sustainable fishing practices.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Renewable Energy">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Renewable Energy</h3>
-                        <p>Promoting solar, wind, and other clean energy sources to reduce dependence on fossil fuels.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta" id="get-involved">
-        <div class="container">
-            <h2>Join Our Global Movement</h2>
-            <p>Together, we can create a sustainable future for generations to come. Every action counts, no matter how small.</p>
-            <a href="#" class="btn">Become a Member</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Green Network</h3>
-                    <p>We are dedicated to protecting our planet through collaborative action, education, and sustainable solutions.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#initiatives">Initiatives</a></li>
-                        <li><a href="#get-involved">Get Involved</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Our Programs</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Reforestation</a></li>
-                        <li><a href="#">Ocean Cleanup</a></li>
-                        <li><a href="#">Wildlife Protection</a></li>
-                        <li><a href="#">Climate Education</a></li>
-                        <li><a href="#">Sustainable Agriculture</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Copper Creek Drive, New York</p>
-                    <p><i class="fas fa-phone"></i> +1 (312) 171-0771</p>
-                    <p><i class="fas fa-envelope"></i> support@greennetwork.org</p>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 Green Network. All rights reserved.</p>
-            </div>
-        </div>
+    <footer class="footer">
+      <span>© <span id="year"></span> Jayi Blog · Static Template</span>
+      <span>提示：按 <span class="kbd">/</span> 聚焦搜索，按 <span class="kbd">Esc</span> 退出</span>
     </footer>
+  </main>
 
-    <script>
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
+  <script>
+    // ====== Data: 直接改这里即可 ======
+    const POSTS = [
+      {
+        title: "用最小成本搭一个可长期维护的静态博客",
+        date: "2026-01-11",
+        tags: ["Blog", "Deploy", "Workflow"],
+        reading: "6 min",
+        excerpt: "从信息架构到部署策略：如何用最少的工具做最稳的输出。",
+      },
+      {
+        title: "工程师写作：如何写一篇“可复现”的技术文章",
+        date: "2026-01-08",
+        tags: ["Writing", "Engineering"],
+        reading: "8 min",
+        excerpt: "目标、约束、步骤、结果、复盘。用工程化方法提升写作质量。",
+      },
+      {
+        title: "小项目复盘模板：结论先行 + 清单驱动",
+        date: "2025-12-28",
+        tags: ["Workflow", "Notes"],
+        reading: "5 min",
+        excerpt: "用 checklist 和结论先行，让复盘更快、更可检索。",
+      },
+      {
+        title: "静态页面优化：字体、留白、层级与对比",
+        date: "2025-12-15",
+        tags: ["Design", "Frontend"],
+        reading: "7 min",
+        excerpt: "不依赖框架，也能把视觉做得干净高级。",
+      },
+    ];
+
+    // ====== Helpers ======
+    const $ = (s) => document.querySelector(s);
+    const el = (tag, attrs = {}, children = []) => {
+      const n = document.createElement(tag);
+      Object.entries(attrs).forEach(([k,v]) => {
+        if (k === "class") n.className = v;
+        else if (k === "html") n.innerHTML = v;
+        else n.setAttribute(k, v);
+      });
+      children.forEach(c => n.appendChild(c));
+      return n;
+    };
+
+    // ====== Theme ======
+    const THEME_KEY = "blog_theme";
+    function setTheme(t){
+      document.documentElement.setAttribute("data-theme", t);
+      localStorage.setItem(THEME_KEY, t);
+      $("#themeText").textContent = (t === "light") ? "浅色" : "深色";
+    }
+    function toggleTheme(){
+      const cur = document.documentElement.getAttribute("data-theme") || "dark";
+      setTheme(cur === "dark" ? "light" : "dark");
+    }
+    const saved = localStorage.getItem(THEME_KEY);
+    setTheme(saved || "dark");
+    $("#themeBtn").addEventListener("click", toggleTheme);
+
+    // ====== Render ======
+    function uniqueTags(posts){
+      const s = new Set();
+      posts.forEach(p => (p.tags||[]).forEach(t => s.add(t)));
+      return Array.from(s).sort((a,b)=>a.localeCompare(b));
+    }
+
+    let activeTag = "全部";
+    let query = "";
+
+    function renderFilters(tags){
+      const host = $("#filters");
+      host.innerHTML = "";
+      const all = ["全部", ...tags];
+      all.forEach(t => {
+        const b = el("button", { class: "tagbtn" + (t===activeTag ? " active" : ""), type:"button" });
+        b.textContent = t;
+        b.addEventListener("click", () => {
+          activeTag = t;
+          renderAll();
         });
+        host.appendChild(b);
+      });
+    }
 
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200; // The lower the slower
-            
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                
-                const inc = target / speed;
-                
-                if(count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(animateCounters, 1);
-                } else {
-                    counter.innerText = target;
-                }
-            });
-        }
-
-        // Initialize counters when page loads
-        window.addEventListener('load', animateCounters);
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    document.querySelector('nav ul').classList.remove('active');
-                }
-            });
+    function renderTagCloud(tags){
+      const host = $("#tagCloud");
+      host.innerHTML = "";
+      tags.forEach(t => {
+        const b = el("button", { class:"tag", type:"button" });
+        b.textContent = t;
+        b.addEventListener("click", () => {
+          activeTag = t;
+          renderAll(true);
+          location.hash = "#posts";
         });
-    </script>
+        host.appendChild(b);
+      });
+    }
+
+    function matches(p){
+      const q = query.trim().toLowerCase();
+      const tagOk = (activeTag === "全部") || (p.tags||[]).includes(activeTag);
+      if (!q) return tagOk;
+
+      const hay = [
+        p.title, p.excerpt, (p.tags||[]).join(" ")
+      ].join(" ").toLowerCase();
+
+      return tagOk && hay.includes(q);
+    }
+
+    function postCard(p){
+      const card = el("article", { class:"post" });
+      const thumb = el("div", { class:"thumb", role:"img", "aria-label":"文章缩略图" });
+      const content = el("div");
+      const h = el("h3");
+      h.textContent = p.title;
+
+      const d = el("div", { class:"post-meta" });
+      const date = el("span", { class:"badge" }); date.textContent = p.date;
+      const read = el("span", { class:"badge" }); read.textContent = p.reading || "—";
+      const tags = el("span", { class:"badge" }); tags.textContent = (p.tags||[]).join(" · ");
+      d.append(date, read, tags);
+
+      const ex = el("p"); ex.textContent = p.excerpt || "";
+
+      // 纯静态演示：点击提示（你可以改成跳到单页 / markdown 页面）
+      const link = el("a", { class:"btn", href:"javascript:void(0)", style:"width:fit-content;" });
+      link.innerHTML = `
+        <svg class="icon" viewBox="0 0 24 24" fill="none">
+          <path d="M14 3h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M21 3l-9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 7H7a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        打开文章
+      `;
+      link.addEventListener("click", () => {
+        alert("这是模板演示：你可以把每篇文章做成 article/xxx.html，或接入 Markdown 生成器。");
+      });
+
+      content.append(h, d, ex, link);
+      card.append(thumb, content);
+      return card;
+    }
+
+    function renderPosts(posts){
+      const host = $("#postList");
+      host.innerHTML = "";
+      const filtered = posts.filter(matches).sort((a,b)=> (a.date < b.date ? 1 : -1));
+      if (filtered.length === 0){
+        host.appendChild(el("div", { class:"mini", html: "<strong>没有匹配结果。</strong> 试试换标签或清空搜索。" }));
+        return;
+      }
+      filtered.forEach(p => host.appendChild(postCard(p)));
+    }
+
+    function renderStats(posts){
+      $("#statCount").textContent = posts.length;
+      $("#statTags").textContent = uniqueTags(posts).length;
+    }
+
+    function renderAll(scrollFilters=false){
+      const tags = uniqueTags(POSTS);
+      renderFilters(tags);
+      renderTagCloud(tags);
+      renderPosts(POSTS);
+      renderStats(POSTS);
+      if (scrollFilters) window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Search wiring
+    $("#q").addEventListener("input", (e) => { query = e.target.value; renderPosts(POSTS); });
+
+    // Keyboard: "/" focus search, Esc blur
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "/" && document.activeElement !== $("#q")){
+        e.preventDefault();
+        $("#q").focus();
+      } else if (e.key === "Escape"){
+        $("#q").blur();
+      }
+    });
+
+    // Random button
+    $("#randomBtn").addEventListener("click", () => {
+      const candidates = POSTS.filter(matches);
+      const list = candidates.length ? candidates : POSTS;
+      const pick = list[Math.floor(Math.random() * list.length)];
+      alert("随机文章：\n\n" + pick.title + "\n" + pick.date + " · " + (pick.reading||""));
+    });
+
+    // Subscribe demo
+    $("#subBtn").addEventListener("click", () => {
+      const v = ($("#email").value || "").trim();
+      $("#subHint").textContent = v ? ("已记录（演示）：" + v) : "请输入邮箱地址。";
+    });
+
+    $("#year").textContent = new Date().getFullYear();
+    renderAll();
+  </script>
 </body>
-
 </html>
